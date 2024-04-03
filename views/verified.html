@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verified</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .message {
+            text-align: center;
+            margin: 20px;
+            color: #333;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .icon {
+            width: 85px;
+            height: 85px;
+            fill: currentColor;
+        }
+    </style>
+</head>
+<body>
+    <div id="content" class="container">
+        <!-- Content will be inserted here -->
+    </div>
+
+    <script>
+        const content = document.getElementById('content');
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const error = urlParams.get("error");
+        const message = urlParams.get("message");
+
+        const successContent = `
+            <div class="message" style="background-color: #065f46;">
+                <h2>Email has been verified</h2>
+                <svg class="icon bi bi-check-circle-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 8zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 1 1.08-1.024l2.093 2.094 5.465-5.466a.75.75 0 0 1 1.08 1.024z"/>
+                </svg>
+                <h3>You can now log in</h3>
+                <a href="/login" class="button">Login</a>
+            </div>`;
+
+        const errorContent = `
+            <div class="message" style="background-color: #991B1B;">
+                <h2>Error: ${message}</h2>
+                <svg class="icon bi bi-x-circle-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.646 4.646a.75.75 0 0 1 1.06 0L8 6.938l2.354-2.292a.75.75 0 1 1 1.06 1.06L9.06 8l2.293 2.354a.75.75 0 0 1-1.06 1.06L8 9.062l-2.354 2.293a.75.75 0 1 1-1.06-1.06L6.938 8 4.646 5.646a.75.75 0 0 1 0-1.06z"/>
+                </svg>
+                <p>Please try again or contact support.</p>
+            </div>`;
+
+        content.innerHTML = error ? errorContent : successContent;
+    </script>
+</body>
+</html>
